@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bo Wang | Personal Website</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================================
+           1. 全局变量设置 (在这里统一修改颜色和尺寸)
+           ========================================= */
+        :root {
+            --primary-color: #333;   /* 正文颜色 */
+            --secondary-color: #666; /* 辅助文字颜色 */
+            --link-color: #0066cc;   /* 链接颜色 */
+            --bg-color: #fcfcfc;     /* 背景颜色 */
+            
+            --container-width: 1150px; /* 网页最大宽度 */
+            --profile-width: 240px;    /* 左侧个人信息栏宽度 */
+            --gap: 50px;               /* 左右栏间距 */
+        }
+
+        /* =========================================
+           2. 基础页面样式
+           ========================================= */
+        html {
+            scroll-behavior: smooth; /* 点击导航跳转时平滑滚动 */
+        }
+
+        body {
+            /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
+            /* 1. "Arial Rounded MT Bold", "Helvetica Rounded", Arial: 圆润英文字体。
+               2. "PingFang SC": 苹果电脑/手机的首选中文（苹方）。
+               3. "Hiragino Sans GB": 苹果系统的备选中文（冬青黑体）。
+               4. "Microsoft YaHei": Windows 系统的首选中文（微软雅黑）。
+               5. sans-serif: 兜底的无衬线字体。
+            */
+            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", sans-serif;
+            line-height: 1.3;
+            color: var(--primary-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        /* 普通链接悬停显示下划线 */
+        a:hover {
+            text-decoration: underline;
+            color: #004494;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* =========================================
+           3. 顶部导航栏样式
+           ========================================= */
+        .navbar-wrapper {
+            position: sticky; /* 吸顶固定 */
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(252, 252, 252, 0.95); /* 半透明背景 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* 左对齐 */
+            gap: 60px; /* 名字和导航链接之间的距离 */
+            height: 70px;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: #666;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            letter-spacing: -0.5px;
+            white-space: nowrap; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px; /* 导航链接之间的间距 */
+        }
+
+        .nav-links a {
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 1.05em;
+            position: relative;
+            text-decoration: none; /* 导航链接默认无下划线 */
+        }
+        
+        /* 导航链接下划线动画 */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--link-color);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* 强制去掉导航链接悬停时的默认下划线，防止出现双线 */
+        .nav-links a:hover { 
+            color: var(--link-color); 
+            text-decoration: none !important; 
+        }
+
+        /* =========================================
+           4. 主体布局 (Grid: 左侧信息 + 右侧内容)
+           ========================================= */
+        .page-content {
+            display: grid;
+            grid-template-columns: var(--profile-width) 1fr;
+            gap: var(--gap);
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        /* --- 左侧个人信息区域 --- */
+        .profile-section {
+            position: sticky;
+            top: 100px; /* 滚动时粘在距离顶部 100px 的位置 */
+            height: fit-content; 
+        }
+        
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+            /* [新增] 1. 柔和的高级投影，让头像脱离背景 */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            /* [新增] 2. 添加过渡动画，让变化顺滑 */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        /* 头像鼠标悬停时的效果 */
+        .profile-avatar:hover {
+            transform: scale(1.05) translateY(-2px); /* 微微放大并上浮 */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); /* 投影加深 */
+        }
+
+        .profile-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .profile-bio {
+            color: var(--secondary-color);
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+        .social-links li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .social-links i {
+            width: 24px;
+            color: #555;
+            margin-right: 8px;
+        }
+
+        /* --- [修改] 社交图标品牌颜色 --- */
+        /* Email (Gmail 红色) */
+        .social-links .fa-envelope { 
+            color: #ea4335; 
+        }
+
+        /* Google Scholar (谷歌蓝) */
+        .social-links .fa-graduation-cap { 
+            color: #4285f4; 
+        }
+
+        /* GitHub (经典黑) */
+        .social-links .fa-github { 
+            color: #333; 
+        }
+
+        /* Twitter (推特蓝) */
+        .social-links .fa-twitter { 
+            color: #1da1f2; 
+        }
+
+        /* --- 右侧主要内容区域 --- */
+        .main-section {
+            min-width: 0;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px; /* 锚点跳转时的偏移量 */
+        }
+
+        h2 {
+            font-size: 1.3em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* 列表通用样式 (News, Projects) */
+        ul.simple-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul.simple-list li {
+            margin-bottom: 14px;
+            position: relative;
+            padding-left: 20px;
+        }
+        ul.simple-list li::before {
+            content: '•';
+            color: var(--link-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* 论文列表样式 (Publications) */
+        .paper-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px dashed #eee;
+        }
+        .paper-item:last-child { border-bottom: none; }
+        
+        .paper-img {
+            width: 200px;
+            height: 120px;
+            background-color: #f0f0f0;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            flex-shrink: 0;
+        }
+
+        .paper-content { width: 100%; }
+
+        .paper-title {
+            font-weight: 600;
+            font-size: 1.0em;
+            color: #111;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+        
+        .paper-authors { font-size: 0.85em; color: #444; margin-bottom: 5px; }
+        .paper-venue { font-size: 0.9em; font-weight: 700; color: #c9302c; margin-bottom: 8px; }
+        .paper-abstract { font-size: 0.85em; color: #666; margin-bottom: 10px; line-height: 1.5; }
+
+        .paper-links { display: flex; flex-wrap: wrap; gap: 8px; }
+        /* 论文部分的按钮的样式 */
+        .tag-btn {
+            font-size: 0.8em;
+            padding: 3px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #555;
+            background: #fff;
+            transition: all 0.2s;
+        }
+        .tag-btn:hover {
+            background-color: #333;
+            color: #fff;
+            border-color: #333;
+            text-decoration: none;
+        }
+
+        /* --- 经历模块样式 (Experience) --- */
+        /* 1. 外层卡片样式优化 */
+        .experience-item {
+            display: flex;
+            gap: 25px;             /* [优化] 加大图片和文字的间距，不那么拥挤 */
+            margin-bottom: 20px;
+            padding: 25px;         /* [优化] 加大内部留白 */
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;   /* [优化] 圆角改大，看起来更现代 */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* [优化] 动画更顺滑 */
+        }
+
+        /* 2. 卡片悬停效果优化 */
+        .experience-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); /* [优化] 悬停时投影更高级柔和 */
+            transform: translateY(-3px);              /* [优化] 微微上浮 */
+            border-color: transparent;                /* [优化] 悬停时淡化边框 */
+        }
+
+        /* 3. Logo 样式 */
+        .experience-logo {
+            width: 64px;          /* [微调] 稍微改小一点点(原75px)，显得更精致 */
+            height: 64px;
+            object-fit: contain;  
+            flex-shrink: 0;
+            border: none;                 /* 去掉边框线 */
+            background-color: transparent;/* 去掉背景色 */
+            padding: 0;                   /* 去掉内边距 */
+            border-radius: 4px;           /* 保持一点点圆角 */
+        }
+
+        /* 右侧文字内容容器 */
+        .experience-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+      /* =========================================
+           5. 移动端适配 (手机屏幕)
+           ========================================= */
+           @media (max-width: 850px) {
+            /* 1. 全局布局调整 */
+            :root { 
+                --container-width: 100%; 
+                --gap: 30px; /* 减小板块间距 */
+            }
+            
+            .container {
+                padding: 0 15px; /* 减小两侧留白，增加内容显示区域 */
+            }
+
+            .page-content {
+                grid-template-columns: 1fr; /* 强制单列 */
+                gap: 40px;
+                margin-top: 20px;
+            }
+
+            /* 2. 左侧个人信息栏 */
+            .profile-section {
+                position: static; /* 取消吸顶 */
+                text-align: center;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 30px;
+                margin-bottom: 10px;
+            }
+            .profile-avatar {
+                width: 140px;
+                height: 140px;
+                margin: 0 auto 15px auto;
+            }
+            .profile-bio p {
+                justify-content: center;
+            }
+            .social-links, .social-links li { 
+                justify-content: center; 
+            }
+            
+            /* 3. 导航栏适配优化 */
+            .navbar {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            .nav-logo { 
+                margin-bottom: 5px; 
+            }
+            .nav-links {
+                gap: 15px 20px; /* 行间距15px，列间距20px */
+                font-size: 0.95em;
+                flex-wrap: wrap; /* 允许换行，防止小屏溢出 */
+                justify-content: center;
+                width: 100%;
+            }
+            
+            /* 4. 经历卡片 (Experience) 紧凑化 */
+            .experience-item {
+                padding: 15px; /* [重要] 减小内边距 */
+                gap: 15px;     /* [重要] 减小图文间距 */
+            }
+            .experience-logo {
+                width: 50px;   /* [重要] 手机上 Logo 缩小 */
+                height: 50px;
+            }
+            /* 让右侧的时间文字在手机上换行显示，避免挤压标题 */
+            .experience-content div:first-child {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 4px;
+            }
+
+            /* 5. 论文列表 (Publications) 优化 */
+            .paper-item { 
+                flex-direction: column; 
+                gap: 15px;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
+            }
+            .paper-img { 
+                width: 100%; 
+                height: 160px; /* [重要] 限制图片高度，防止图片过大霸屏 */
+                object-fit: cover; /* 保持比例裁剪 */
+            }
+            .paper-title {
+                font-size: 1.1em; /* 稍微加大标题方便点击 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar-wrapper">
+        <div class="navbar">
+            <div class="nav-logo">Bo Wang | Personal Homepage</div>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#news">News</a>
+                <a href="#experience">Experience</a>
+                <a href="#publications">Publications</a>
+                <a href="#awards">Awards</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-content">
+            
+            <aside class="profile-section">
+                <img src="./images/my_photo.png" alt="Profile Photo" class="profile-avatar">
+                
+                <div class="profile-name">Bo Wang 王渤</div>
+                <div class="profile-bio">
+                    <p>He/Him</p>
+                    <p style="margin-top:10px; font-size: 0.9em; color:#888;">
+                        "Stay hungry, stay foolish."
+                    </p>
+                </div>
+
+                <ul class="social-links">
+                    <li><a href="mailto:u202241488@xs.ustb.edu.cn"><i class="fas fa-envelope"></i> Email</a></li>
+                    <li><a href="https://scholar.google.com.hk/citations?user=aCCuZvcAAAAJ&hl=zh-CN"><i class="fas fa-graduation-cap"></i> Google Scholar</a></li>
+                    <li><a href="https://github.com/bowang-0102"><i class="fab fa-github"></i> Github</a></li>
+                    <li><a href="https://x.com/bowang_0102"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </aside>
+
+            <main class="main-section">
+                
+                <section id="about">
+                    <div style="font-size: 1.4em; font-style: italic; font-weight: bold; margin-bottom: 20px; color: #ca6f70;">
+                        Hi there 👋 Welcome to my Homepage! 
+                    </div>
+                
+                    <p style="line-height: 1.6;">
+                        I am currently an undergraduate student (2022-2026) at the 
+                        <strong><a href="https://www.ustb.edu.cn/" target="_blank">University of Science and Technology Beijing (USTB)</a></strong>.
+                        I am honored to be an incoming Ph.D. student at 
+                        <strong><a href="http://vlrlab.aia.hust.edu.cn/" target="_blank">VLRLab</a></strong>, 
+                        <strong><a href="https://www.hust.edu.cn/" target="_blank">Huazhong University of Science and Technology (HUST)</a></strong>, 
+                        advised by Prof. 
+                        <strong><a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank">Xiang Bai</a></strong> (IEEE Fellow).
+                        <br>
+                        My research interests primarily lie in <strong style="color: #ca6f70;">3D Vision</strong> and <strong style="color: #ca6f70;">Multimodal Large Models</strong>.
+                    </p>
+                </section>
+                
+                <section id="news">
+                    <h2>News</h2>
+                    <ul class="simple-list">
+                        <li>[2025-09] Recommended for admission to <strong style="color: var(--link-color);"><a href="http://vlrlab.aia.hust.edu.cn/">VLRLab@HUST</a></strong> 
+                            for PhD studies.</li>
+                        <li>[2025-07] 🎉 <strong style="color: var(--link-color);"><a href="https://arxiv.org/abs/2505.17619">CAS-IQA</a></strong> is accepted in ICONIP 2025.</li>
+                    </ul>
+                </section>
+
+                <section id="experience">
+                    <h2>Experience</h2>
+
+                    <div class="experience-item">
+                        <img src="./images/hust.png" alt="hust Logo" class="experience-logo">
+                        
+                        <div class="experience-content">
+                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
+                                <strong style="font-size: 1.05em; color: #0066cc">Huazhong University of Science and Technology</strong>
+                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Sep 2026 - Jun 2031 (expected)</span>
+                            </div>
+                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                                Incoming Ph.D. Student @ VLRLab
+                            </div>
+                            <div style="font-size: 0.9em; color: #666;">
+                                Advisor: Prof. <a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank" style="color:#666; text-decoration:underline;">Xiang Bai</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <img src="./images/casia.png" alt="casia Logo" class="experience-logo">
+                        
+                        <div class="experience-content">
+                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
+                                <strong style="font-size: 1.05em; color: #0066cc;">Institute of Automation, CAS</strong>
+                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Aug 2024 - Aug 2025</span>
+                            </div>
+                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                                Research Intern @ HEART Group
+                            </div>
+                            <div style="font-size: 0.9em; color: #666;">
+                                Advisor: Prof. <a href="https://people.ucas.edu.cn/~xhz" target="_blank" style="color:#666; text-decoration:underline;">Xiao-Hu Zhou</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="experience-item">
+                        <img src="./images/ustb.png" alt="ustb Logo" class="experience-logo">
+                        
+                        <div class="experience-content">
+                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
+                                <strong style="font-size: 1.05em; color: #0066cc">University of Science and Technology Beijing</strong>
+                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Sep 2022 - Jun 2026</span>
+                            </div>
+                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                                B.Eng. in Automation
+                            </div>
+                            <div style="font-size: 0.9em; color: #666;">
+                                Advisor: Prof. Dong-Mei Fu / GPA: 3.77
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="publications">
+                    <h2>Publications</h2>
+                    
+                    <div class="paper-item">
+                        <img src="./paper_images/cas-iqa.png" alt="Paper Teaser" class="paper-img">
+                        <div class="paper-content">
+                            <div class="paper-title">
+                                <a href="#">CAS-IQA: Teaching Vision-Language Models for Synthetic Angiography Quality Assessment</a>
+                            </div>
+                            <div class="paper-authors">
+                                <strong style="color:#000">Bo Wang*</strong>, De-Xing Huang*, Xiao-Hu Zhou†, Mei-Jiang Gui, 
+                                Nu-Fang Xiao, Jian-Long Hao, Ming-Yuan Liu†, and Zeng-Guang Hou
+                            </div>
+                            <div class="paper-venue">ICONIP 2025 (CCF C)</div>
+                            <div class="paper-abstract">
+                                We propose CAS-IQA, a vision-language model (VLM)-based framework that predicts fine-grained quality scores of synthetic X-ray angiograms 
+                                by effectively incorporating auxiliary information from related images.
+                            </div>
+                            <div class="paper-links">
+                                <a href="https://arxiv.org/pdf/2505.17619" class="tag-btn">PDF</a>
+                                <a href="https://arxiv.org/abs/2505.17619" class="tag-btn">arXiv</a>
+                                <a href="https://github.com/bowang-0102/CAS-Score" class="tag-btn">Code</a>
+                                <a href="./pdf/iconip_poster.pdf" class="tag-btn">Poster</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="paper-item">
+                        <img src="./paper_images/cas-iqa.png" alt="Paper Teaser" class="paper-img">
+                        <div class="paper-content">
+                            <div class="paper-title">
+                                <a href="#">CAS-IQA: Teaching Vision-Language Models for Synthetic Angiography Quality Assessment</a>
+                            </div>
+                            <div class="paper-authors">
+                                
+                                <strong>Bo Wang*</strong>, Dexing Huang*, et al.
+                            </div>
+                            <div class="paper-venue">ICONIP 2025</div>
+                            <div class="paper-abstract">
+                                We propose CAS-IQA, a vision-language model (VLM)-based framework that predicts fine-grained quality scores of synthetic X-ray angiograms 
+                                by effectively incorporating auxiliary information from related images.
+                            </div>
+                            <div class="paper-links">
+                                <a href="#" class="tag-btn">PDF</a>
+                                <a href="#" class="tag-btn">arXiv</a>
+                                <a href="#" class="tag-btn">Code</a>
+                                <a href="#" class="tag-btn">Website</a>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </section>
+
+                <section id="awards">
+                    <h2>Awards</h2>
+                    <ul class="simple-list">
+                        <li>Grand Prize (Champion), National Finals, 18th CIMC China Intelligent Manufacturing Challenge.</li>
+                        <li>National Encouragement Scholarship 2024, 2025.</li>
+                    </ul>
+                </section>
+                
+                <footer style="margin-top: 80px; color: #999; font-size: 0.8em; padding-top: 20px; border-top: 1px solid #eee;">
+                    &copy; 2025 Bo Wang. Powered by Simple HTML. Design inspired by <a href="https://selen-suyue.github.io/" style="color: #999; text-decoration: underline;">Selen</a> and
+                    <a href="https://github.com/academicpages/academicpages.github.io" style="color: #999; text-decoration: underline;">academicpages</a>.
+                </footer>
+
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
