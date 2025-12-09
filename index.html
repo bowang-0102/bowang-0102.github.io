@@ -42,6 +42,7 @@
             background-color: var(--bg-color);
             margin: 0;
             padding: 0;
+            animation: fadeIn 0.8s ease-out; /* [新增] 页面加载淡入效果 */
         }
 
         a {
@@ -197,6 +198,18 @@
             margin-right: 8px;
         }
 
+        /* --- 社交链接去掉下划线 --- */
+        .social-links a {
+            text-decoration: none; /* 去掉默认下划线 */
+            transition: transform 0.2s ease, color 0.2s ease; /* 过渡动画 */
+            display: inline-block; /* 确保transform兼容性 */
+        }
+        .social-links a:hover {
+            text-decoration: none; /* 悬停时也去掉下划线 */
+            color:#004494;
+            transform: translateX(3px); /* 悬停时向右轻微移动 */
+        }
+
         /* --- [修改] 社交图标品牌颜色 --- */
         /* Email (Gmail 红色) */
         .social-links .fa-envelope { 
@@ -345,6 +358,12 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* 页面加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
       /* =========================================
@@ -499,7 +518,7 @@
                 <section id="news">
                     <h2>News</h2>
                     <ul class="simple-list">
-                        <li>[2025-09] Recommended for admission to <strong style="color: var(--link-color);"><a href="http://vlrlab.aia.hust.edu.cn/">VLRLab@HUST</a></strong> 
+                        <li>[2025-09] 🎉 Recommended for admission to <strong style="color: var(--link-color);"><a href="http://vlrlab.aia.hust.edu.cn/">VLRLab@HUST</a></strong> 
                             for PhD studies.</li>
                         <li>[2025-07] 🎉 <strong style="color: var(--link-color);"><a href="https://arxiv.org/abs/2505.17619">CAS-IQA</a></strong> is accepted in ICONIP 2025.</li>
                     </ul>
