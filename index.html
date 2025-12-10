@@ -30,19 +30,24 @@
 
         body {
             /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
-            /* 1. "Arial Rounded MT Bold", "Helvetica Rounded", Arial: 圆润英文字体。
-               2. "PingFang SC": 苹果电脑/手机的首选中文（苹方）。
-               3. "Hiragino Sans GB": 苹果系统的备选中文（冬青黑体）。
-               4. "Microsoft YaHei": Windows 系统的首选中文（微软雅黑）。
-               5. sans-serif: 兜底的无衬线字体。
-            */
-            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", sans-serif;
+            /* font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", sans-serif; */
+            /* 字体:
+                1. "Arial Rounded MT Bold": Mac/iOS 优先使用，提供圆润可爱的视觉效果。
+                2. Calibri: Windows 优先使用，比 Arial 更现代、更温润。
+                3. Arial: 英文和数字的通用兜底，确保在任何旧设备上都能清晰显示。
+                4. "PingFang SC": Mac/iOS 系统的首选中文（苹方）。
+                5. "Microsoft YaHei": Windows 系统的首选中文（微软雅黑）。
+                6. sans-serif: 最后的系统默认无衬线字体兜底。
+                */
+            font-family: "Arial Rounded MT Bold", Calibri, "Segoe UI", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1.3;
             color: var(--primary-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            animation: fadeIn 0.8s ease-out; /* [新增] 页面加载淡入效果 */
+                    line-height: 1.3;
+                    color: var(--primary-color);
+                    background-color: var(--bg-color);
+                    margin: 0;
+                    padding: 0;
+                    animation: fadeIn 0.8s ease-out; /* [新增] 页面加载淡入效果 */
         }
 
         a {
