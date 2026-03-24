@@ -42,12 +42,10 @@
             font-family: "Arial Rounded MT Bold", Calibri, "Segoe UI", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1.3;
             color: var(--primary-color);
-                    line-height: 1.3;
-                    color: var(--primary-color);
-                    background-color: var(--bg-color);
-                    margin: 0;
-                    padding: 0;
-                    animation: fadeIn 0.8s ease-out; /* [新增] 页面加载淡入效果 */
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 0.8s ease-out; /* [新增] 页面加载淡入效果 */
         }
 
         a {
@@ -132,6 +130,12 @@
             color: var(--link-color); 
             text-decoration: none !important; 
         }
+        .nav-links a.active {
+            color: var(--link-color);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
 
         /* =========================================
            4. 主体布局 (Grid: 左侧信息 + 右侧内容)
@@ -157,7 +161,7 @@
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border: 4px solid #fff;
             /* [新增] 1. 柔和的高级投影，让头像脱离背景 */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -174,7 +178,7 @@
         .profile-name {
             font-size: 1.2em;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #333;
             line-height: 1.2;
         }
@@ -184,6 +188,11 @@
             font-size: 0.9em;
             line-height: 1.6;
             margin-bottom: 20px;
+        }
+        .quote-line {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #888;
         }
         
         .social-links {
@@ -248,8 +257,8 @@
 
         h2 {
             font-size: 1.3em;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding-bottom: 12px;
             margin-bottom: 25px;
             font-weight: 600;
             color: #333;
@@ -286,8 +295,9 @@
         .paper-img {
             width: 200px;
             height: 120px;
-            background-color: #f0f0f0;
-            object-fit: cover;
+            background-color: #fafafa;
+            object-fit: contain;
+            object-position: center;
             border-radius: 6px;
             border: 1px solid #eee;
             flex-shrink: 0;
@@ -305,7 +315,7 @@
         
         .paper-authors { font-size: 0.85em; color: #444; margin-bottom: 5px; }
         .paper-venue { font-size: 0.9em; font-weight: 700; color: #c9302c; margin-bottom: 8px; }
-        .paper-abstract { font-size: 0.85em; color: #666; margin-bottom: 10px; line-height: 1.5; }
+        .paper-abstract { font-size: 0.85em; color: #666; margin-bottom: 10px; line-height: 1.6; }
 
         .paper-links { display: flex; flex-wrap: wrap; gap: 8px; }
         /* 论文部分的按钮的样式 */
@@ -319,9 +329,9 @@
             transition: all 0.2s;
         }
         .tag-btn:hover {
-            background-color: #333;
+            background-color: #ca6f70;
             color: #fff;
-            border-color: #333;
+            border-color: #ca6f70;
             text-decoration: none;
         }
 
@@ -340,8 +350,8 @@
 
         /* 2. 卡片悬停效果优化 */
         .experience-item:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06); /* [优化] 悬停时投影更高级柔和 */
-            transform: translateY(-3px);              /* [优化] 微微上浮 */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05); /* [优化] 悬停时投影更高级柔和 */
+            transform: translateY(-2px);              /* [优化] 微微上浮 */
             border-color: transparent;                /* [优化] 悬停时淡化边框 */
         }
 
@@ -363,6 +373,72 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+        .about-greeting {
+            font-size: 1.4em;
+            font-style: italic;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ca6f70;
+        }
+        .about-text {
+            line-height: 1.65;
+        }
+        .interest-highlight {
+            color: #ca6f70;
+        }
+        .news-link-emphasis {
+            color: var(--link-color);
+        }
+        .experience-headline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+        .experience-org {
+            font-size: 1.05em;
+            color: #0066cc;
+        }
+        .experience-time {
+            color: #666;
+            font-size: 0.9em;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        .experience-role {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .experience-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .experience-advisor-link {
+            color: #666;
+            text-decoration: underline;
+        }
+        .paper-author-me {
+            color: #000;
+        }
+        .site-footer {
+            margin-top: 80px;
+            color: #999;
+            font-size: 0.8em;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .footer-link {
+            color: #999;
+            text-decoration: underline;
+        }
+        .footer-meta {
+            margin-top: 8px;
+        }
+        .footer-updated {
+            text-decoration: underline;
         }
 
         /* 页面加载动画 */
@@ -455,7 +531,8 @@
             .paper-img { 
                 width: 100%; 
                 height: 160px; /* [重要] 限制图片高度，防止图片过大霸屏 */
-                object-fit: cover; /* 保持比例裁剪 */
+                object-fit: contain; /* 显示完整图片，避免裁剪 */
+                object-position: center;
             }
             .paper-title {
                 font-size: 1.1em; /* 稍微加大标题方便点击 */
@@ -469,7 +546,7 @@
         <div class="navbar">
             <div class="nav-logo">Bo Wang | Personal Homepage</div>
             <nav class="nav-links">
-                <a href="#about">About</a>
+                <a href="#about" class="active">About</a>
                 <a href="#news">News</a>
                 <a href="#experience">Experience</a>
                 <a href="#publications">Publications</a>
@@ -487,7 +564,7 @@
                 <div class="profile-name">Bo Wang 王渤</div>
                 <div class="profile-bio">
                     <p>He/Him</p>
-                    <p style="margin-top:10px; font-size: 0.9em; color:#888;">
+                    <p class="quote-line">
                         "Stay hungry, stay foolish."
                     </p>
                 </div>
@@ -503,29 +580,29 @@
             <main class="main-section">
                 
                 <section id="about">
-                    <div style="font-size: 1.4em; font-style: italic; font-weight: bold; margin-bottom: 20px; color: #ca6f70;">
+                    <div class="about-greeting">
                         Hi there 👋 Welcome to my Homepage! 
                     </div>
                 
-                    <p style="line-height: 1.6;">
+                    <p class="about-text">
                         I am currently an undergraduate student (2022-2026) at
-                        <strong><a href="https://www.ustb.edu.cn/" target="_blank">University of Science and Technology Beijing (USTB)</a></strong>.
+                        <strong><a href="https://www.ustb.edu.cn/" target="_blank" rel="noopener noreferrer">University of Science and Technology Beijing (USTB)</a></strong>.
                         I am honored to be an incoming Ph.D. student at 
-                        <strong><a href="http://vlrlab.aia.hust.edu.cn/" target="_blank">VLRLab</a></strong>, 
-                        <strong><a href="https://www.hust.edu.cn/" target="_blank">Huazhong University of Science and Technology (HUST)</a></strong>, 
+                        <strong><a href="http://vlrlab.aia.hust.edu.cn/" target="_blank" rel="noopener noreferrer">VLRLab</a></strong>, 
+                        <strong><a href="https://www.hust.edu.cn/" target="_blank" rel="noopener noreferrer">Huazhong University of Science and Technology (HUST)</a></strong>, 
                         advised by Prof. 
-                        <strong><a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank">Xiang Bai</a></strong> (IEEE Fellow).
+                        <strong><a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Xiang Bai</a></strong> (IEEE Fellow).
                         <br>
-                        My research interests primarily lie in <strong style="color: #ca6f70;">3D Vision</strong> and <strong style="color: #ca6f70;">Multimodal Large Models</strong>.
+                        My research interests primarily lie in <strong class="interest-highlight">3D Vision</strong> and <strong class="interest-highlight">Multimodal Large Models</strong>.
                     </p>
                 </section>
                 
                 <section id="news">
                     <h2>News</h2>
                     <ul class="simple-list">
-                        <li>[2025-09] 🎉 Recommended for admission to <strong style="color: var(--link-color);"><a href="http://vlrlab.aia.hust.edu.cn/">VLRLab@HUST</a></strong> 
+                        <li>[2025-09] 🎉 Recommended for admission to <strong class="news-link-emphasis"><a href="http://vlrlab.aia.hust.edu.cn/">VLRLab@HUST</a></strong> 
                             for PhD studies.</li>
-                        <li>[2025-07] 🎉 <strong style="color: var(--link-color);"><a href="https://arxiv.org/abs/2505.17619">CAS-IQA</a></strong> is accepted in ICONIP 2025.</li>
+                        <li>[2025-07] 🎉 <strong class="news-link-emphasis"><a href="https://arxiv.org/abs/2505.17619">CAS-IQA</a></strong> is accepted in ICONIP 2025.</li>
                     </ul>
                 </section>
 
@@ -533,51 +610,51 @@
                     <h2>Experience</h2>
 
                     <div class="experience-item">
-                        <img src="./images/hust.png" alt="hust Logo" class="experience-logo">
+                        <img src="./images/hust.png" alt="hust Logo" class="experience-logo" loading="lazy" decoding="async">
                         
                         <div class="experience-content">
-                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
-                                <strong style="font-size: 1.05em; color: #0066cc">Huazhong University of Science and Technology</strong>
-                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Sep 2026 - Jun 2031 (expected)</span>
+                            <div class="experience-headline">
+                                <strong class="experience-org">Huazhong University of Science and Technology</strong>
+                                <span class="experience-time">Sep 2026 - Jun 2031 (expected)</span>
                             </div>
-                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                            <div class="experience-role">
                                 Incoming Ph.D. Student @ VLRLab
                             </div>
-                            <div style="font-size: 0.9em; color: #666;">
-                                Advisor: Prof. <a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank" style="color:#666; text-decoration:underline;">Xiang Bai</a>
+                            <div class="experience-meta">
+                                Advisor: Prof. <a href="https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="experience-advisor-link">Xiang Bai</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="experience-item">
-                        <img src="./images/casia.png" alt="casia Logo" class="experience-logo">
+                        <img src="./images/casia.png" alt="casia Logo" class="experience-logo" loading="lazy" decoding="async">
                         
                         <div class="experience-content">
-                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
-                                <strong style="font-size: 1.05em; color: #0066cc;">Institute of Automation, CAS</strong>
-                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Aug 2024 - Aug 2025</span>
+                            <div class="experience-headline">
+                                <strong class="experience-org">Institute of Automation, CAS</strong>
+                                <span class="experience-time">Aug 2024 - Aug 2025</span>
                             </div>
-                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                            <div class="experience-role">
                                 Research Intern @ HEART Group
                             </div>
-                            <div style="font-size: 0.9em; color: #666;">
-                                Advisor: Prof. <a href="https://people.ucas.edu.cn/~xhz" target="_blank" style="color:#666; text-decoration:underline;">Xiao-Hu Zhou</a>
+                            <div class="experience-meta">
+                                Advisor: Prof. <a href="https://people.ucas.edu.cn/~xhz" target="_blank" rel="noopener noreferrer" class="experience-advisor-link">Xiao-Hu Zhou</a>
                             </div>
                         </div>
                     </div>
                 
                     <div class="experience-item">
-                        <img src="./images/ustb.png" alt="ustb Logo" class="experience-logo">
+                        <img src="./images/ustb.png" alt="ustb Logo" class="experience-logo" loading="lazy" decoding="async">
                         
                         <div class="experience-content">
-                            <div style="display:flex; justify-content:space-between; align-items: flex-start; margin-bottom: 6px;">
-                                <strong style="font-size: 1.05em; color: #0066cc">University of Science and Technology Beijing</strong>
-                                <span style="color:#666; font-size:0.9em; white-space: nowrap; margin-left: 10px;">Sep 2022 - Jun 2026</span>
+                            <div class="experience-headline">
+                                <strong class="experience-org">University of Science and Technology Beijing</strong>
+                                <span class="experience-time">Sep 2022 - Jun 2026</span>
                             </div>
-                            <div style="font-size: 0.95em; font-weight: 600; color: #333; margin-bottom: 4px;">
+                            <div class="experience-role">
                                 B.Eng. in Automation
                             </div>
-                            <div style="font-size: 0.9em; color: #666;">
+                            <div class="experience-meta">
                                 Advisor: Prof. Dong-Mei Fu / GPA: 3.77
                             </div>
                         </div>
@@ -588,13 +665,13 @@
                     <h2>Publications</h2>
                     
                     <div class="paper-item">
-                        <img src="./paper_images/cas-iqa.png" alt="Paper Teaser" class="paper-img">
+                        <img src="./paper_images/cas-iqa.png" alt="Paper Teaser" class="paper-img" loading="lazy" decoding="async">
                         <div class="paper-content">
                             <div class="paper-title">
                                 <a href="#">CAS-IQA: Teaching Vision-Language Models for Synthetic Angiography Quality Assessment</a>
                             </div>
                             <div class="paper-authors">
-                                <strong style="color:#000">Bo Wang*</strong>, De-Xing Huang*, Xiao-Hu Zhou†, Mei-Jiang Gui, 
+                                <strong class="paper-author-me">Bo Wang*</strong>, De-Xing Huang*, Xiao-Hu Zhou†, Mei-Jiang Gui, 
                                 Nu-Fang Xiao, Jian-Long Hao, Ming-Yuan Liu†, and Zeng-Guang Hou
                             </div>
                             <div class="paper-venue">ICONIP 2025 (CCF C)</div>
@@ -644,11 +721,11 @@
                     </ul>
                 </section>
                 
-                <footer style="margin-top: 80px; color: #999; font-size: 0.8em; padding-top: 20px; border-top: 1px solid #eee;">
-                    &copy; 2025 Bo Wang. Powered by Simple HTML. Design inspired by <a href="https://selen-suyue.github.io/" style="color: #999; text-decoration: underline;">Selen</a> and
-                    <a href="https://github.com/academicpages/academicpages.github.io" style="color: #999; text-decoration: underline;">academicpages</a>.
-                    <div style="margin-top: 8px;">
-                        &#9998; Last updated: <span style="text-decoration: underline;">2025-12-08</span>
+                <footer class="site-footer">
+                    &copy; 2025 Bo Wang. Powered by Simple HTML. Design inspired by <a href="https://selen-suyue.github.io/" class="footer-link">Selen</a> and
+                    <a href="https://github.com/academicpages/academicpages.github.io" class="footer-link">academicpages</a>.
+                    <div class="footer-meta">
+                        &#9998; Last updated: <span class="footer-updated">2025-12-08</span>
                     </div>
                 </footer>
 
@@ -656,5 +733,22 @@
         </div>
     </div>
 
+    <script>
+        const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+        const sections = navLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!visible) return;
+            const id = `#${visible.target.id}`;
+            navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === id));
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: [0.2, 0.5, 0.8] });
+
+        sections.forEach((section) => observer.observe(section));
+    </script>
 </body>
 </html>
